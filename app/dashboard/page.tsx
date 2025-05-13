@@ -39,6 +39,7 @@ interface Transaction {
   date: Date
   paidBy: string
   paid_by?: string
+  paid_to?: string
   splitBetween?: string[]
   note?: string
   tag?: string
@@ -541,6 +542,7 @@ export default function Dashboard() {
               date: new Date(transaction.created_at),
               paidBy: transaction.paid_by,
               paid_by: transaction.paid_by,
+              paid_to: transaction.paid_to,
               splitBetween: transaction.split_between,
               note: transaction.note,
               tag: transaction.tag,
@@ -595,6 +597,8 @@ export default function Dashboard() {
               amount: transaction.amount,
               date: new Date(transaction.created_at),
               paidBy: transaction.paid_by,
+              paid_by: transaction.paid_by,
+              paid_to: transaction.paid_to,
               paidBetween: transaction.split_between,
               note: transaction.note,
               tag: transaction.tag,
@@ -878,6 +882,8 @@ export default function Dashboard() {
         amount: newTransaction.amount,
         date: new Date(newTransaction.created_at),
         paidBy: newTransaction.paid_by,
+        paid_by: newTransaction.paid_by,
+        paid_to: newTransaction.paid_to,
         splitBetween: newTransaction.split_between,
         note: newTransaction.note,
         tag: newTransaction.tag,
@@ -980,6 +986,8 @@ export default function Dashboard() {
         amount: newTransaction.amount,
         date: new Date(newTransaction.created_at),
         paidBy: newTransaction.paid_by,
+        paid_by: newTransaction.paid_by,
+        paid_to: newTransaction.paid_to,
         splitBetween: newTransaction.split_between,
         note: newTransaction.note,
         tag: newTransaction.tag,
