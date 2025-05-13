@@ -1,0 +1,78 @@
+SOLUCIÓN PARA LA INTERFAZ INVITATION
+
+También es necesario actualizar la interfaz Invitation en utils/database.ts para que coincida con la estructura real de la tabla:
+
+\`\`\`typescript
+export interface Invitation {
+  id: string;
+  token: string;         // Ahora es un UUID, no un string simple
+  group_id: string;
+  invited_by: string;    // Cambiado de created_by a invited_by
+  email: string | null;
+  status: string;        // Nuevo campo, con valores como 'pending' o 'used'
+  created_at: string;
+  expires_at: string | null;
+}
+\`\`\`
+
+Luego, también necesitarás actualizar las funciones relacionadas con invitaciones en la misma clase:
+
+\`\`\`typescript
+// Invitations functions
+createInvitation: async (invitation: Omit<Invitation, "id" | "created_at" | "status">) => {
+  const supabase = createBrowserClient()
+  const { data, error } = await supabase.from("invitations").insert(invitation).select().single()
+
+  if (error) throw error
+  return data as Invitation
+},
+
+getInvitationByToken: async (token: string) => {
+  const supabase = createBrowserClient()
+  const { data, error } = await supabase.from("invitations").select("*").eq("token", token).single()
+
+  if (error) throw error
+  return data as Invitation
+},
+
+acceptInvitation: async (token: string, userId: string) => {
+  const supabase = createBrowserClient()
+  
+  // 1. Get the invitation
+  const { data: invitation, error: invitationError } = await supabase
+    .from("invitations")
+    .select("*")
+    .eq("token", token)
+    .single()
+  
+  if (invitationError) throw invitationError
+  
+  // 2. Add the user to the group
+  const { data: member, error: memberError } = await supabase
+    .from("group_members")
+    .insert({
+      group_id: invitation.group_id,
+      user_id: userId,
+      role: "member",
+    })
+    .select()
+    .single()
+  
+  if (memberError) throw memberError
+  
+  // 3. Mark the invitation as used
+  const { error: updateError } = await supabase
+    .from("invitations")
+    .update({
+      status: "used",
+    })
+    .eq("token", token)
+  
+  if (updateError) throw updateError
+  
+  return member
+},
+\`\`\`
+
+NOTA IMPORTANTE:
+Si hay otras funciones en el archivo que usan la tabla invitations, asegúrate de actualizarlas también para que coincidan con la estructura real de la tabla.

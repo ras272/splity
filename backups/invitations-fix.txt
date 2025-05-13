@@ -1,0 +1,92 @@
+SOLUCIÓN PARA EL PROBLEMA DE INSERCIÓN EN LA TABLA INVITATIONS
+
+Reemplaza la función handleGenerateInviteLink actual con esta versión corregida:
+
+\`\`\`javascript
+const handleGenerateInviteLink = async () => {
+  if (!inviteEmail) return
+
+  try {
+    // Generamos un UUID para el token (compatible con la columna uuid)
+    const token = crypto.randomUUID(); // Usar UUID en lugar de string aleatorio
+    
+    // Creamos el enlace de invitación
+    const link = `${window.location.origin}/invite/${token}`;
+    
+    // Log de la información que estamos enviando
+    console.log("Datos de invitación a insertar:", {
+      token,
+      group_id: selectedGroupId,
+      email: inviteEmail,
+      invited_by: user?.id, // Cambiado de created_by a invited_by
+      expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+    });
+    
+    // Guardamos la invitación en la base de datos
+    const result = await supabase
+      .from('invitations')
+      .insert({
+        token,
+        group_id: selectedGroupId,
+        email: inviteEmail,
+        invited_by: user?.id, // Cambiado de created_by a invited_by
+        expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(), // 7 días
+      });
+    
+    // Log detallado del resultado completo
+    console.log("Resultado completo de insert:", JSON.stringify(result, null, 2));
+    
+    if (result.error) {
+      console.error("Error detallado:", {
+        code: result.error.code,
+        message: result.error.message,
+        details: result.error.details,
+        hint: result.error.hint
+      });
+      throw result.error;
+    }
+    
+    setInviteLink(link);
+
+    // Mostramos un toast de éxito
+    toast({
+      title: "Enlace generado",
+      description: "El enlace de invitación ha sido generado correctamente",
+      duration: 3000,
+    });
+  } catch (error) {
+    console.error("Error generando invitación:", error);
+    toast({
+      title: "Error",
+      description: "No se pudo generar la invitación. Inténtalo de nuevo.",
+      duration: 3000,
+    });
+  }
+};
+\`\`\`
+
+CAMBIOS PRINCIPALES:
+
+1. Se cambió `created_by` por `invited_by` para coincidir con el nombre de columna en la base de datos
+
+2. Se cambió la generación del token de:
+   \`\`\`javascript
+   const token = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+   \`\`\`
+   a:
+   \`\`\`javascript
+   const token = crypto.randomUUID();
+   \`\`\`
+   
+   Ya que la columna token en la base de datos es de tipo UUID.
+
+3. Nota: Si no tienes acceso a crypto.randomUUID(), puedes necesitar importarlo o usar alguna biblioteca UUID:
+   \`\`\`javascript
+   import { v4 as uuidv4 } from 'uuid';
+   // Y luego: const token = uuidv4();
+   \`\`\`
+
+PARA IMPLEMENTAR:
+1. Primero, importa crypto o una biblioteca UUID en la parte superior de tu archivo si es necesario.
+2. Reemplaza la función handleGenerateInviteLink con la versión corregida.
+3. Asegúrate también de actualizar cualquier otra parte del código que utilice la tabla invitations.

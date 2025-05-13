@@ -1,0 +1,78 @@
+SOLUCIÓN PARA LA RUTA INVITE/[TOKEN]
+
+También deberás actualizar el archivo app/invite/[token]/page.tsx para que coincida con la estructura de la tabla invitations. Aquí están los cambios necesarios:
+
+1. En el componente `InvitePage`, al obtener la invitación:
+
+\`\`\`javascript
+// 2. Obtener la invitación
+const { data: invitation, error: invitationError } = await supabase
+  .from('invitations')
+  .select('*')
+  .eq('token', token)
+  .single()
+\`\`\`
+
+2. Al verificar si la invitación ha expirado:
+
+\`\`\`javascript
+// 3. Verificar si la invitación ha expirado
+if (invitation.expires_at && new Date(invitation.expires_at) < new Date()) {
+  setError('La invitación ha expirado.')
+  setLoading(false)
+  return
+}
+\`\`\`
+
+3. Al marcar la invitación como usada:
+
+\`\`\`javascript
+// 2. Marcar la invitación como usada
+await supabase
+  .from('invitations')
+  .update({ 
+    status: 'used', // En lugar de used: true
+    // No necesitas used_by, hay que actualizar status a 'used'
+  })
+  .eq('token', token)
+\`\`\`
+
+La función `handleJoinGroup` completa debería verse así:
+
+\`\`\`javascript
+const handleJoinGroup = async () => {
+  try {
+    setJoining(true)
+    
+    // 1. Añadir usuario como miembro del grupo
+    const { error: memberError } = await supabase
+      .from('group_members')
+      .insert({
+        group_id: group.id,
+        user_id: user.id,
+        role: 'member',
+      })
+    
+    if (memberError) throw memberError
+    
+    // 2. Marcar la invitación como usada
+    await supabase
+      .from('invitations')
+      .update({ 
+        status: 'used',
+        // La tabla no tiene campos used_by o used_at, solo status
+      })
+      .eq('token', token)
+    
+    // 3. Redirigir al dashboard
+    router.push(`/dashboard?group=${group.id}`)
+  } catch (err) {
+    console.error('Error joining group:', err)
+    setError('Ha ocurrido un error al unirte al grupo.')
+    setJoining(false)
+  }
+}
+\`\`\`
+
+NOTA IMPORTANTE:
+Estas correcciones asumen que tu tabla de invitaciones tiene un campo `status` en lugar de los campos `used`, `used_by` y `used_at`. Asegúrate de adaptar el código a la estructura exacta de tu tabla.

@@ -1,0 +1,493 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+  .dark {
+    --background: 222 18% 11%;
+    --foreground: 210 20% 98%;
+    --card: 222 16% 12%;
+    --card-foreground: 210 20% 98%;
+    --popover: 222 16% 12%;
+    --popover-foreground: 210 20% 98%;
+    --primary: 210 20% 98%;
+    --primary-foreground: 222 18% 11%;
+    --secondary: 217 19% 18%;
+    --secondary-foreground: 210 20% 98%;
+    --muted: 217 19% 18%;
+    --muted-foreground: 215 16% 75%;
+    --accent: 217 19% 18%;
+    --accent-foreground: 210 20% 98%;
+    --destructive: 0 70% 42%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 217 19% 20%;
+    --input: 217 19% 18%;
+    --ring: 212 16% 83.1%;
+    --chart-1: 220 70% 60%;
+    --chart-2: 160 60% 55%;
+    --chart-3: 30 80% 65%;
+    --chart-4: 280 65% 70%;
+    --chart-5: 340 75% 65%;
+    --sidebar-background: 222 18% 11%;
+    --sidebar-foreground: 210 20% 92%;
+    --sidebar-primary: 224 76% 58%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 217 19% 18%;
+    --sidebar-accent-foreground: 210 20% 92%;
+    --sidebar-border: 217 19% 20%;
+    --sidebar-ring: 217 91.2% 65%;
+  }
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+}
+
+/* Mejoras para contraste y legibilidad en modo oscuro */
+.dark .bg-muted\/30 {
+  background-color: rgba(31, 41, 55, 0.4);
+}
+
+.dark .bg-emerald-50\/50 {
+  background-color: rgba(6, 78, 59, 0.4);
+}
+
+.dark .text-muted-foreground {
+  color: rgba(209, 213, 219, 0.8);
+}
+
+.dark .bg-blue-50\/50 {
+  background-color: rgba(30, 58, 138, 0.3);
+}
+
+.dark .text-emerald-600 {
+  color: rgb(52, 211, 153);
+}
+
+.dark .border-emerald-100\/20 {
+  border-color: rgba(6, 78, 59, 0.3);
+}
+
+.dark .bg-amber-50\/50 {
+  background-color: rgba(146, 64, 14, 0.3);
+}
+
+.dark .hover\:bg-emerald-50:hover {
+  background-color: rgba(6, 78, 59, 0.4);
+}
+
+.dark .hover\:bg-red-50:hover {
+  background-color: rgba(153, 27, 27, 0.2);
+}
+
+.dark .bg-red-50 {
+  background-color: rgba(153, 27, 27, 0.2);
+}
+
+.dark .bg-emerald-50 {
+  background-color: rgba(6, 78, 59, 0.3);
+}
+
+.dark .bg-emerald-100 {
+  background-color: rgba(6, 78, 59, 0.4);
+}
+
+.dark .text-emerald-700 {
+  color: rgb(16, 185, 129);
+}
+
+.dark .text-red-500 {
+  color: rgb(248, 113, 113);
+}
+
+.dark .tooltip-content {
+  background-color: rgb(31, 41, 55);
+  border-color: rgb(55, 65, 81);
+}
+
+.dark .dialog-content {
+  background-color: rgb(17, 24, 39);
+  border-color: rgb(31, 41, 55);
+}
+
+/* Mejora para tarjetas y fondos en modo oscuro */
+.dark .card-hover:hover {
+  box-shadow: 0 10px 15px -3px rgba(6, 78, 59, 0.2), 0 4px 6px -4px rgba(6, 78, 59, 0.2);
+}
+
+.dark .bg-gradient-to-r {
+  background-image: linear-gradient(to right, rgba(6, 78, 59, 0.4), transparent);
+}
+
+/* Mejoras específicas para la sección de logros financieros */
+.dark [class*="group-[.toast]"] {
+  background-color: rgb(31, 41, 55);
+  color: rgb(243, 244, 246);
+  border-color: rgb(55, 65, 81);
+}
+
+.dark .toaster .toast {
+  background-color: rgb(31, 41, 55);
+  border-color: rgb(55, 65, 81);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
+}
+
+/* Mejorar los tooltips */
+.dark div[role="tooltip"] {
+  background-color: rgb(31, 41, 55);
+  color: rgb(243, 244, 246);
+  border-color: rgb(55, 65, 81);
+}
+
+/* Mejorar los mensajes informativos como "Tip financiero" */
+.dark .rounded-lg.border.p-4.bg-blue-50\/50 {
+  background-color: rgba(30, 58, 138, 0.3);
+  border-color: rgba(30, 64, 175, 0.4);
+}
+
+/* Mejorar las tarjetas de logros */
+.dark .grid.grid-cols-1.md\:grid-cols-3.gap-4 > div {
+  background-color: rgba(31, 41, 55, 0.5);
+  border: 1px solid rgba(55, 65, 81, 0.3);
+}
+
+.dark .grid.grid-cols-1.md\:grid-cols-3.gap-4 > div:hover {
+  background-color: rgba(31, 41, 55, 0.7);
+}
+
+/* Mejorar contraste en transacciones */
+.dark .divide-y > div:hover {
+  background-color: rgba(31, 41, 55, 0.4) !important;
+}
+
+/* Mejorar contraste en etiquetas */
+.dark .badge,
+.dark span[class*="badge"] {
+  border-color: rgba(55, 65, 81, 0.5);
+}
+
+/* Mejorar iconos en modo oscuro */
+.dark .flex.h-10.w-10.items-center.justify-center.rounded-full.bg-gray-100,
+.dark .flex.h-8.w-8.items-center.justify-center.rounded-full.bg-blue-100 {
+  background-color: rgb(31, 41, 55);
+  color: rgb(147, 197, 253);
+}
+
+/* Mejorar fondos de elementos interactivos */
+.dark .bg-muted\/50 {
+  background-color: rgba(31, 41, 55, 0.5);
+}
+
+/* Mejorar contraste de texto secundario */
+.dark .text-xs.text-muted-foreground,
+.dark .text-sm.text-muted-foreground {
+  color: rgba(209, 213, 219, 0.9);
+}
+
+/* Mejorar balance visual en barra de progreso */
+.dark div[role="progressbar"] {
+  background-color: rgba(55, 65, 81, 0.7);
+}
+
+.dark div[role="progressbar"] > div {
+  background-color: #10b981;
+}
+
+/* Mejorar alertas */
+.dark [role="alert"] {
+  border-color: rgb(55, 65, 81);
+}
+
+/* Mejorar contraste en hover de elementos */
+.dark .hover\:bg-muted\/30:hover {
+  background-color: rgba(31, 41, 55, 0.6);
+}
+
+/* Mejorar contraste de subtítulos */
+.dark h3.text-md.font-medium,
+.dark h3.text-lg.font-medium {
+  color: rgb(243, 244, 246);
+}
+
+/* Mejorar contraste en diálogos */
+.dark [data-state="open"] [role="dialog"] {
+  background-color: rgb(31, 41, 55);
+  border-color: rgb(55, 65, 81);
+}
+
+/* Mejorar barras de separación */
+.dark hr,
+.dark div[role="separator"] {
+  background-color: rgba(55, 65, 81, 0.5);
+}
+
+/* Mejorar contraste para Popover y DropdownMenu */
+.dark [role="menu"],
+.dark [data-state="open"] [data-radix-popper-content-wrapper] > div {
+  background-color: rgb(31, 41, 55);
+  border-color: rgb(55, 65, 81);
+}
+
+/* Mejorar botones en modo oscuro */
+.dark button[variant="outline"] {
+  border-color: rgb(55, 65, 81);
+}
+.dark button[variant="outline"]:hover {
+  border-color: rgb(75, 85, 99);
+}
+
+/* Mejorar input en modo oscuro */
+.dark input {
+  background-color: rgba(31, 41, 55, 0.6);
+  border-color: rgb(55, 65, 81);
+}
+
+/* Mejorar tooltip más visible */
+.dark [data-radix-tooltip-content] {
+  background-color: rgb(31, 41, 55);
+  border-color: rgb(55, 65, 81);
+  color: rgb(243, 244, 246);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -4px rgba(0, 0, 0, 0.2);
+}
+
+/* Mejorar contraste de datos o valores importantes */
+.dark .text-emerald-500,
+.dark .text-emerald-600 {
+  color: rgb(52, 211, 153);
+}
+
+/* Mejorar contraste de valores monetarios */
+.dark .font-medium.text-emerald-600,
+.dark .font-semibold.text-emerald-500 {
+  color: rgb(52, 211, 153);
+}
+
+/* Mejorar notificaciones */
+.dark span.absolute.-right-1.-top-1 {
+  background-color: rgb(239, 68, 68);
+  color: white;
+}
+
+/* Mejorar bordes sutiles */
+.dark .border-b.border-emerald-100\/20 {
+  border-color: rgba(6, 78, 59, 0.3);
+}
+
+/* Mejoras específicas para la sección de logros financieros */
+.dark .text-center h3.text-md.font-medium {
+  color: white;
+}
+
+.dark .text-center p.text-sm.text-muted-foreground {
+  color: rgb(209, 213, 219);
+}
+
+.dark .flex.h-16.w-16.items-center.justify-center.rounded-full.bg-muted {
+  background-color: rgb(31, 41, 55);
+}
+
+/* Mejorar card-hover */
+.dark .card-hover {
+  border-color: rgb(31, 41, 55);
+}
+
+.dark .card-hover:hover {
+  background-color: rgba(31, 41, 55, 0.2);
+  border-color: rgb(55, 65, 81);
+}
+
+/* Mejorar la presentación del presupuesto restante */
+.dark .mt-2.text-xs.text-muted-foreground.cursor-help {
+  color: rgba(52, 211, 153, 0.9);
+}
+
+/* Mejorar el contraste en valores de importancia */
+.dark .font-semibold.text-lg {
+  color: white;
+}
+
+/* Destacar mejor la pantalla de carga */
+.dark .text-lg.font-medium:has(+ .h-12.w-12.animate-spin) {
+  color: rgb(209, 213, 219);
+}
+
+/* Mejorar contraste en fechas y detalles pequeños */
+.dark .text-xs.text-muted-foreground:not(.mt-2) {
+  color: rgb(156, 163, 175);
+}
+
+/* Destacar mejor el avatar de usuario */
+.dark .relative.flex.h-9.w-9.items-center.justify-center.rounded-full.bg-gradient-to-br.from-gray-100.to-gray-200 {
+  background-image: linear-gradient(to bottom right, rgb(55, 65, 81), rgb(31, 41, 55));
+  color: rgb(229, 231, 235);
+}
+
+/* Mejorar presentación en tarjetas de balance */
+.dark .mb-6.rounded-xl.bg-white.p-5.shadow-sm {
+  background-color: rgba(31, 41, 55, 0.5);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* Mejorar la presentación de elementos de carga */
+.dark .mb-4.h-12.w-12.animate-spin.rounded-full.border-4 {
+  border-color: rgb(55, 65, 81);
+  border-top-color: rgb(16, 185, 129);
+}
+
+/* Mejorar contraste de pestañas activas */
+.dark [data-state="active"] {
+  background-color: rgb(31, 41, 55);
+  color: white;
+}
+
+/* Mejorar contraste en secciones principales */
+.dark .p-6.sticky.top-16 h2.mb-4.text-lg.font-semibold {
+  color: rgb(243, 244, 246);
+}
+
+/* Mejora final para el modo oscuro en general */
+.dark.theme-dark {
+  color: rgb(243, 244, 246);
+}
+
+/* Mejorar estados de foco en modo oscuro */
+.dark :focus-visible {
+  --tw-ring-offset-color: rgb(17, 24, 39);
+  --tw-ring-color: rgba(16, 185, 129, 0.7);
+}
+
+/* Mejorar dropdown menus */
+.dark .dropdown-menu-content {
+  border-color: rgb(55, 65, 81);
+  background-color: rgb(31, 41, 55);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+}
+
+/* Mejorar selects y menús */
+.dark select,
+.dark select option,
+.dark .select-content {
+  background-color: rgb(31, 41, 55);
+  border-color: rgb(55, 65, 81);
+}
+
+/* Mejorar popover y tooltips */
+.dark .popover-content {
+  background-color: rgb(31, 41, 55);
+  border-color: rgb(55, 65, 81);
+}
+
+/* Mejorar información sobre hover */
+.dark [data-state="delayed-open"][data-side="bottom"] {
+  background-color: rgb(31, 41, 55);
+  border-color: rgb(55, 65, 81);
+  color: rgb(243, 244, 246);
+}
+
+/* Mejorar colores de alerta */
+.dark .text-red-500 {
+  color: rgb(248, 113, 113);
+}
+
+.dark .text-blue-500 {
+  color: rgb(96, 165, 250);
+}
+
+.dark .text-green-500 {
+  color: rgb(74, 222, 128);
+}
+
+/* Mejorar colores de los botones de acción */
+.dark .bg-emerald-500 {
+  background-color: #10b981;
+}
+
+.dark .hover\:bg-emerald-600:hover {
+  background-color: rgb(5, 150, 105);
+}
+
+/* Mejorar sombras en modo oscuro */
+.dark .shadow-sm {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+}
+
+.dark .shadow-md {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.4);
+}
+
+/* Mejorar bordes de cards y tablas */
+.dark .border {
+  border-color: rgba(31, 41, 55, 1);
+}
+
+/* Mejorar fondos graduales */
+.dark .bg-gradient-to-br {
+  background-image: linear-gradient(to bottom right, rgb(31, 41, 55), rgb(17, 24, 39));
+}
+
+/* Mejorar modales y diálogos */
+.dark [role="dialog"] {
+  background-color: rgb(31, 41, 55);
+  border-color: rgb(55, 65, 81);
+}
+
+/* Mejorar indicadores visuales de carga */
+.dark .animate-pulse {
+  background-color: rgb(55, 65, 81);
+}
+
+/* Mejorar texto en botones */
+.dark .button.bg-emerald-500 {
+  color: white;
+}
