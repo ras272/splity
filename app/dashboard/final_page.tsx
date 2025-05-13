@@ -1864,7 +1864,11 @@ export default function Dashboard() {
                             )}
                             {transaction.type === "settlement" && (
                               <p className="text-sm text-muted-foreground">
-                                You paid {transaction.paidBy} ??? Settlement
+                                {transaction.paidBy === "You" 
+                                  ? `You paid ${transaction.paid_to}` 
+                                  : transaction.paid_to === "You" 
+                                    ? `${transaction.paidBy} paid You` 
+                                    : `${transaction.paidBy} paid ${transaction.paid_to}`} • Settlement
                               </p>
                             )}
                             {transaction.type === "expense" && (
